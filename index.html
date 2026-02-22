@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>NOIR ATELIER | Luxury Leather</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            -webkit-tap-highlight-color: transparent;
+            -webkit-touch-callout: none;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0a0a0a;
+            color: #f5f5f0;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .font-display {
+            font-family: 'Cinzel', serif;
+        }
+        
+        /* Smooth scrolling for iOS */
+        html {
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        /* Hide scrollbar but keep functionality */
+        ::-webkit-scrollbar {
+            width: 0px;
+            background: transparent;
+        }
+        
+        /* Mobile-optimized animations */
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+            opacity: 0;
+        }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        
+        .slide-up {
+            animation: slideUp 0.6s ease-out forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Touch-friendly buttons */
+        .btn-touch {
+            min-height: 44px;
+            min-width: 44px;
+            touch-action: manipulation;
+        }
+        
+        /* Image loading placeholder */
+        .img-loading {
+            background: linear-gradient(90deg, #1a1a1a 25%, #2a2a2a 50%, #1a1a1a 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        
+        @keyframes loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+        
+        /* Mobile menu animation */
+        .menu-open {
+            transform: translateX(0) !important;
+        }
+        
+        /* Prevent text zoom on orientation change */
+        @media screen and (max-width: 768px) {
+            html {
+                text-size-adjust: 100%;
+                -webkit-text-size-adjust: 100%;
+            }
+        }
+        
+        /* Swipe hint animation */
+        .swipe-hint {
+            animation: swipeHint 2s infinite;
+        }
+        
+        @keyframes swipeHint {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(10px); }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Fixed Navigation -->
+    <nav class="fixed w-full z-50 top-0 bg-black/95 backdrop-blur-md border-b border-neutral-800 transition-all duration-300" id="navbar">
+        <div class="flex justify-between items-center px-4 py-3">
+            <!-- Logo -->
+            <div class="flex items-center gap-2" onclick="window.scrollTo(0,0)">
+                <svg width="36" height="36" viewBox="0 0 100 100" class="flex-shrink-0">
+                    <path d="M20,50 Q30,20 50,20 T80,50 Q70,80 50,80 T20,50" 
+                          fill="none" stroke="#d4af37" stroke-width="2.5"/>
+                    <path d="M35,50 L65,50 M50,35 L50,65" 
+                          stroke="#f5f5f0" stroke-width="2"/>
+                </svg>
+                <div class="flex flex-col">
+                    <span class="font-display text-lg tracking-[0.15em] text-white leading-none">NOIR</span>
+                    <span class="text-[0.5rem] tracking-[0.3em] text-yellow-600 uppercase">Atelier</span>
+                </div>
+            </div>
+
+            <!-- Hamburger Menu Button -->
+            <button onclick="toggleMenu()" class="btn-touch p-2" aria-label="Menu">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobileMenu" class="fixed inset-0 bg-black z-40 transform translate-x-full transition-transform duration-300 flex flex-col justify-center items-center gap-8 pt-20">
+        <button onclick="toggleMenu()" class="absolute top-4 right-4 p-2 btn-touch">
+            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+        </button>
+        
+        <a href="#collection" onclick="toggleMenu()" class="font-display text-3xl tracking-widest text-white py-4">Collection</a>
+        <a href="#craft" onclick="toggleMenu()" class="font-display text-3xl tracking-widest text-white py-4">Craft</a>
+        <a href="#editorial" onclick="toggleMenu()" class="font-display text-3xl tracking-widest text-white py-4">Editorial</a>
+        <a href="#contact" onclick="toggleMenu()" class="font-display text-3xl tracking-widest text-white py-4">Contact</a>
+        
+        <div class="mt-12 flex gap-6">
+            <a href="#" class="text-yellow-600 text-sm tracking-widest">Instagram</a>
+            <a href="#" class="text-yellow-600 text-sm tracking-widest">Twitter</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-16 pb-20 px-4 overflow-hidden">
+        <!-- Background -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://kimi-web-img.moonshot.cn/img/assets.vogue.com/380c987546ed05eb6965a40b1ed0b8ab331625ac.jpg" 
+                 alt="Hero" 
+                 class="w-full h-full object-cover opacity-50"
+                 loading="eager">
+            <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black"></div>
+        </div>
+
+        <!-- Content -->
+        <div class="relative z-10 text-center max-w-lg mx-auto px-2">
+            <p class="text-yellow-600 text-xs tracking-[0.4em] uppercase mb-4 fade-in" style="animation-delay: 0.2s">Est. 2024</p>
+            
+            <h1 class="font-display text-4xl leading-tight mb-6 fade-in" style="animation-delay: 0.4s">
+                <span class="block italic font-light text-3xl mb-1">Timeless</span>
+                <span class="block font-bold text-5xl">Rebellion</span>
+            </h1>
+            
+            <p class="text-gray-300 text-sm leading-relaxed mb-8 px-4 fade-in" style="animation-delay: 0.6s">
+                Heritage craftsmanship meets contemporary edge. Handcrafted leather jackets built to last decades.
+            </p>
+            
+            <a href="#collection" class="inline-block bg-yellow-600 text-black px-8 py-4 text-xs tracking-[0.2em] uppercase font-bold rounded-sm fade-in btn-touch" style="animation-delay: 0.8s">
+                Shop Collection
+            </a>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <svg class="w-5 h-5 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="bg-neutral-900 py-8 px-4 border-y border-neutral-800">
+        <div class="flex justify-around text-center max-w-md mx-auto">
+            <div class="slide-up" style="animation-delay: 0.1s">
+                <span class="block text-2xl font-display text-white">100%</span>
+                <span class="text-[0.6rem] tracking-widest text-gray-500 uppercase">Handmade</span>
+            </div>
+            <div class="slide-up" style="animation-delay: 0.2s">
+                <span class="block text-2xl font-display text-white">72h</span>
+                <span class="text-[0.6rem] tracking-widest text-gray-500 uppercase">Crafting</span>
+            </div>
+            <div class="slide-up" style="animation-delay: 0.3s">
+                <span class="block text-2xl font-display text-white">25yr</span>
+                <span class="text-[0.6rem] tracking-widest text-gray-500 uppercase">Warranty</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collection Section -->
+    <section id="collection" class="py-16 px-4 bg-black">
+        <div class="max-w-md mx-auto">
+            <div class="text-center mb-12">
+                <p class="text-yellow-600 text-xs tracking-[0.3em] uppercase mb-2">New Arrivals</p>
+                <h2 class="font-display text-3xl">The Collection</h2>
+            </div>
+
+            <!-- Product Cards - Stacked for Mobile -->
+            <div class="space-y-8">
+                <!-- Product 1 -->
+                <div class="group bg-neutral-900 rounded-sm overflow-hidden">
+                    <div class="relative aspect-[3/4] overflow-hidden">
+                        <img src="https://kimi-web-img.moonshot.cn/img/editorialist.com/59ae12e358279c8aaa7bd490a65bb93fff134af4.jpg" 
+                             alt="The Maverick" 
+                             class="w-full h-full object-cover transition-transform duration-500 group-active:scale-105"
+                             loading="lazy">
+                        <div class="absolute top-3 right-3 bg-yellow-600 text-black text-[0.6rem] px-2 py-1 tracking-widest uppercase font-bold">New</div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-display text-xl mb-1">The Maverick</h3>
+                        <p class="text-gray-500 text-sm mb-3">Oversized Biker</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-yellow-600 font-display text-lg">$1,290</span>
+                            <button class="bg-white text-black px-4 py-2 text-xs tracking-widest uppercase font-bold rounded-sm btn-touch">View</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="group bg-neutral-900 rounded-sm overflow-hidden">
+                    <div class="relative aspect-[3/4] overflow-hidden">
+                        <img src="https://kimi-web-img.moonshot.cn/img/hips.hearstapps.com/85ac562e3d5cf2869c1df459e0016c07d18af13f.jpg" 
+                             alt="The Aviator" 
+                             class="w-full h-full object-cover transition-transform duration-500 group-active:scale-105"
+                             loading="lazy">
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-display text-xl mb-1">The Aviator</h3>
+                        <p class="text-gray-500 text-sm mb-3">Shearling Collar</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-yellow-600 font-display text-lg">$1,450</span>
+                            <button class="bg-white text-black px-4 py-2 text-xs tracking-widest uppercase font-bold rounded-sm btn-touch">View</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="group bg-neutral-900 rounded-sm overflow-hidden">
+                    <div class="relative aspect-[3/4] overflow-hidden">
+                        <img src="https://kimi-web-img.moonshot.cn/img/cdn.leatherscin.com/6e19862a9bc806e67b62fc2c0308be64c2720fc0.webp" 
+                             alt="The Minimalist" 
+                             class="w-full h-full object-cover transition-transform duration-500 group-active:scale-105"
+                             loading="lazy">
+                        <div class="absolute top-3 right-3 border border-white text-white text-[0.6rem] px-2 py-1 tracking-widest uppercase">Limited</div>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-display text-xl mb-1">The Minimalist</h3>
+                        <p class="text-gray-500 text-sm mb-3">Clean Structure</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-yellow-600 font-display text-lg">$1,180</span>
+                            <button class="bg-white text-black px-4 py-2 text-xs tracking-widest uppercase font-bold rounded-sm btn-touch">View</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="w-full mt-8 border border-yellow-600/50 text-yellow-600 py-4 text-xs tracking-[0.2em] uppercase btn-touch">
+                View All Products
+            </button>
+        </div>
+    </section>
+
+    <!-- Craftsmanship Section -->
+    <section id="craft" class="py-16 px-4 bg-neutral-900">
+        <div class="max-w-md mx-auto">
+            <div class="mb-8">
+                <img src="https://kimi-web-img.moonshot.cn/img/fashionista.com/93aef9f6aa82ff1f04d7ca496a2b4d7caa2c5c37.png" 
+                     alt="Craftsmanship" 
+                     class="w-full aspect-square object-cover rounded-sm mb-6"
+                     loading="lazy">
+                
+                <h2 class="font-display text-3xl mb-4 leading-tight">
+                    Crafted for the <span class="text-yellow-600 italic">Bold</span>
+                </h2>
+                
+                <p class="text-gray-400 text-sm leading-relaxed mb-4">
+                    Sourced from the finest Italian leather, each piece undergoes 72 hours of meticulous hand-finishing by master artisans in Milan.
+                </p>
+                
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    Our 2025 collection embraces oversized silhouettes while maintaining structured shoulders that define power dressing.
+                </p>
+            </div>
+
+            <!-- Features List -->
+            <div class="space-y-4">
+                <div class="flex items-start gap-4 p-4 bg-black/30 rounded-sm">
+                    <div class="w-8 h-8 rounded-full bg-yellow-600/20 flex items-center justify-center flex-shrink-0">
+                        <span class="text-yellow-600 text-xs">01</span>
+                    </div>
+                    <div>
+                        <h4 class="font-display text-sm mb-1">Italian Leather</h4>
+                        <p class="text-gray-500 text-xs">Full-grain hides from Tuscany</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start gap-4 p-4 bg-black/30 rounded-sm">
+                    <div class="w-8 h-8 rounded-full bg-yellow-600/20 flex items-center justify-center flex-shrink-0">
+                        <span class="text-yellow-600 text-xs">02</span>
+                    </div>
+                    <div>
+                        <h4 class="font-display text-sm mb-1">Hand-Stitched</h4>
+                        <p class="text-gray-500 text-xs">Waxed thread, reinforced seams</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start gap-4 p-4 bg-black/30 rounded-sm">
+                    <div class="w-8 h-8 rounded-full bg-yellow-600/20 flex items-center justify-center flex-shrink-0">
+                        <span class="text-yellow-600 text-xs">03</span>
+                    </div>
+                    <div>
+                        <h4 class="font-display text-sm mb-1">Lifetime Care</h4>
+                        <p class="text-gray-500 text-xs">Free conditioning service</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Editorial Gallery -->
+    <section id="editorial" class="py-16 px-4 bg-black">
+        <div class="max-w-md mx-auto">
+            <div class="text-center mb-8">
+                <p class="text-yellow-600 text-xs tracking-[0.3em] uppercase mb-2">As Featured In</p>
+                <h2 class="font-display text-3xl mb-2">Editorial</h2>
+                <p class="text-gray-500 text-xs">Swipe to explore</p>
+            </div>
+
+            <!-- Horizontal Scroll Gallery -->
+            <div class="flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 -mx-4 px-4 scrollbar-hide" style="scrollbar-width: none; -ms-overflow-style: none;">
+                <div class="snap-center shrink-0 w-[85vw] max-w-sm relative rounded-sm overflow-hidden">
+                    <img src="https://kimi-web-img.moonshot.cn/img/assets.vogue.com/380c987546ed05eb6965a40b1ed0b8ab331625ac.jpg" 
+                         class="w-full aspect-[3/4] object-cover" alt="Editorial 1" loading="lazy">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+                        <p class="text-yellow-600 text-[0.6rem] tracking-widest uppercase">Vogue 2025</p>
+                        <h3 class="font-display text-lg">The Slouchy Revolution</h3>
+                    </div>
+                </div>
+                
+                <div class="snap-center shrink-0 w-[85vw] max-w-sm relative rounded-sm overflow-hidden">
+                    <img src="https://kimi-web-img.moonshot.cn/img/www.luxurylifestylemag.co.uk/304c9d988acd3eac31ad056dd46d48049eac0033.jpg" 
+                         class="w-full aspect-[3/4] object-cover" alt="Editorial 2" loading="lazy">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+                        <p class="text-yellow-600 text-[0.6rem] tracking-widest uppercase">Lifestyle</p>
+                        <h3 class="font-display text-lg">Street Style</h3>
+                    </div>
+                </div>
+                
+                <div class="snap-center shrink-0 w-[85vw] max-w-sm relative rounded-sm overflow-hidden">
+                    <img src="https://kimi-web-img.moonshot.cn/img/cdn.dribbble.com/0d7807f5ce6f4f971cdd0cebe11205f287f1a911.jpg" 
+                         class="w-full aspect-[3/4] object-cover" alt="Detail" loading="lazy">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+                        <p class="text-yellow-600 text-[0.6rem] tracking-widest uppercase">Details</p>
+                        <h3 class="font-display text-lg">Signature Stitch</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Swipe Indicator -->
+            <div class="flex justify-center gap-2 mt-4">
+                <div class="w-2 h-2 rounded-full bg-yellow-600"></div>
+                <div class="w-2 h-2 rounded-full bg-gray-700"></div>
+                <div class="w-2 h-2 rounded-full bg-gray-700"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brand Identity -->
+    <section class="py-16 px-4 bg-neutral-900 border-t border-neutral-800">
+        <div class="max-w-md mx-auto text-center">
+            <p class="text-yellow-600 text-xs tracking-[0.3em] uppercase mb-8">Brand Identity</p>
+            
+            <div class="flex justify-center gap-8 mb-8">
+                <div class="text-center">
+                    <svg width="60" height="60" viewBox="0 0 100 100" class="mx-auto mb-2">
+                        <path d="M20,50 Q30,20 50,20 T80,50 Q70,80 50,80 T20,50" 
+                              fill="none" stroke="#d4af37" stroke-width="2"/>
+                    </svg>
+                    <p class="text-[0.6rem] text-gray-500 uppercase tracking-widest">Mark</p>
+                </div>
+                
+                <div class="text-center">
+                    <h3 class="font-display text-2xl tracking-widest text-white mb-1">NOIR</h3>
+                    <p class="text-[0.5rem] tracking-[0.4em] text-yellow-600 uppercase">Atelier</p>
+                    <p class="text-[0.6rem] text-gray-500 uppercase tracking-widest mt-2">Wordmark</p>
+                </div>
+            </div>
+            
+            <p class="text-gray-400 text-xs leading-relaxed px-4">
+                The Noir Atelier identity combines Art Deco geometry with biker culture edge. Gold foil on black leather.
+            </p>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section id="contact" class="py-16 px-4 bg-black">
+        <div class="max-w-md mx-auto text-center">
+            <h2 class="font-display text-2xl mb-3">Join the Inner Circle</h2>
+            <p class="text-gray-400 text-sm mb-8 px-4">Exclusive drops and private styling sessions.</p>
+            
+            <form class="space-y-3" onsubmit="event.preventDefault(); alert('Welcome to Noir Atelier!');">
+                <input type="email" placeholder="Your email address" 
+                       class="w-full bg-neutral-900 border border-neutral-800 rounded-sm py-4 px-4 text-white text-sm focus:outline-none focus:border-yellow-600 transition-colors"
+                       required>
+                <button type="submit" 
+                        class="w-full bg-yellow-600 text-black py-4 text-xs tracking-[0.2em] uppercase font-bold rounded-sm btn-touch">
+                    Subscribe
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-neutral-950 border-t border-neutral-900 py-12 px-4">
+        <div class="max-w-md mx-auto text-center">
+            <div class="flex justify-center items-center gap-2 mb-6">
+                <svg width="24" height="24" viewBox="0 0 100 100">
+                    <path d="M20,50 Q30,20 50,20 T80,50 Q70,80 50,80 T20,50" 
+                          fill="none" stroke="#d4af37" stroke-width="3"/>
+                </svg>
+                <span class="font-display text-lg tracking-widest">NOIR</span>
+            </div>
+            
+            <div class="flex justify-center gap-6 mb-8 text-xs tracking-widest uppercase">
+                <a href="#" class="text-gray-500 hover:text-yellow-600 transition-colors">Shop</a>
+                <a href="#" class="text-gray-500 hover:text-yellow-600 transition-colors">About</a>
+                <a href="#" class="text-gray-500 hover:text-yellow-600 transition-colors">Contact</a>
+            </div>
+            
+            <div class="flex justify-center gap-4 mb-8">
+                <a href="#" class="w-10 h-10 border border-neutral-800 rounded-full flex items-center justify-center text-xs text-gray-500 hover:border-yellow-600 hover:text-yellow-600 transition-colors">IG</a>
+                <a href="#" class="w-10 h-10 border border-neutral-800 rounded-full flex items-center justify-center text-xs text-gray-500 hover:border-yellow-600 hover:text-yellow-600 transition-colors">FB</a>
+                <a href="#" class="w-10 h-10 border border-neutral-800 rounded-full flex items-center justify-center text-xs text-gray-500 hover:border-yellow-600 hover:text-yellow-600 transition-colors">TW</a>
+            </div>
+            
+            <p class="text-gray-600 text-[0.6rem] tracking-widest">&copy; 2025 Noir Atelier</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('menu-open');
+            document.body.style.overflow = menu.classList.contains('menu-open') ? 'hidden' : '';
+        }
+
+        // Navbar Background on Scroll
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 50) {
+                navbar.classList.add('shadow-lg');
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(section);
+        });
+
+        // Touch feedback for buttons
+        document.querySelectorAll('button, a').forEach(btn => {
+            btn.addEventListener('touchstart', function() {
+                this.style.transform = 'scale(0.98)';
+            });
+            btn.addEventListener('touchend', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Prevent zoom on double tap
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', (event) => {
+            const now = (new Date()).getTime();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+    </script>
+</body>
+</html>
